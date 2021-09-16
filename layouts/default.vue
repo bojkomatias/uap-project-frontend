@@ -63,6 +63,11 @@ export default {
           title: 'Turnera',
           to: '/schedule',
         },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Estudiantes',
+          to: '/student',
+        },
       ],
       miniVariant: false,
       right: true,
