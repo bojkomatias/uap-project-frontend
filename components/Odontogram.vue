@@ -121,7 +121,7 @@ export default {
       })
     d3.select('#odontogram')
       .selectAll(null)
-      .data(this.odontogramTemplate.slice(0, 16))
+      .data(this.odontogramTemplate)
       .enter()
       .append('svg')
       .attr('height', 100)
@@ -146,13 +146,13 @@ export default {
         if (d.id === 'bot') return line(this.botPoints) + 'Z'
         else return line(this.centerPoints) + 'Z'
       })
-      .style('fill', '#a1a1a1')
+      .style('fill', '#F2F2E6')
       .style('stroke', 'black')
       .on('mouseover', function () {
-        d3.select(this).style('fill', '#b2f1a1')
+        d3.select(this).style('fill', '#D3DDE6')
       })
       .on('mouseout', function () {
-        d3.select(this).style('fill', '#a1a1a1')
+        d3.select(this).style('fill', '#F2F2E6')
       })
       .on('click', function (e, d) {
         return ctx.toothAndFace(
@@ -181,8 +181,8 @@ export default {
 <style scoped>
 #odontogram {
   padding-top: 2rem;
-  display: flex;
-  flex-direction: row;
+  display: inline-grid;
+  grid-template-columns: repeat(7, 1fr) 6rem repeat(8, 1fr);
   gap: 0.2rem;
 }
 </style>

@@ -78,7 +78,4 @@ export default {
 }
 </script>
 <style>
-.border-color {
-  border: 0.1rem solid #ed6767;
-}
 </style>

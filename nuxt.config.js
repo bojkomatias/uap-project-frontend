@@ -55,14 +55,14 @@ export default {
       options: { variations: false },
       themes: {
         light: {
-          primary: '#292939', // #292939
+          primary: '#043353', // #292939
           accent: '#ED6767', // #ED6767
-          secondary: '#043353', // #043353
+          secondary: '#292939', // #043353
         },
         dark: {
-          primary: '#292939', // #292939
+          primary: '#043353', // #292939
           accent: '#ED6767', // #ED6767
-          secondary: '#043353', // #043353
+          secondary: '#292939', // #043353
         }
       }
     }
