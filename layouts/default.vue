@@ -12,6 +12,7 @@
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
+          active-class="accent--text border-color rounded-xl"
           router
           exact
         >
@@ -38,9 +39,6 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
   </v-app>
 </template>
 
@@ -50,7 +48,6 @@ export default {
     return {
       clipped: true,
       drawer: false,
-      fixed: false,
       items: [
         {
           icon: 'mdi-apps',
@@ -62,12 +59,26 @@ export default {
           title: 'Turnera',
           to: '/schedule',
         },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Prueba d3',
+          to: '/probandod3',
+        },
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Magic turns',
     }
+  },
+  computed: {
+    title() {
+      return this.items.find((item) => item.to === this.$route.path).title
+    },
   },
 }
 </script>
+<style>
+.border-color {
+  border: 0.1rem solid #ed6767;
+}
+</style>
