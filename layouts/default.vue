@@ -60,8 +60,8 @@ export default {
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Turnera',
-          to: '/schedule',
+          title: 'Pacientes',
+          to: '/patients',
         },
       ],
       miniVariant: false,
