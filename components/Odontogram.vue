@@ -121,7 +121,7 @@ export default {
       })
     d3.select('#odontogram')
       .selectAll(null)
-      .data(this.odontogramTemplate.slice(0, 16))
+      .data(this.odontogramTemplate)
       .enter()
       .append('svg')
       .attr('height', 100)
@@ -181,8 +181,8 @@ export default {
 <style scoped>
 #odontogram {
   padding-top: 2rem;
-  display: flex;
-  flex-direction: row;
+  display: inline-grid;
+  grid-template-columns: repeat(7, 1fr) 6rem repeat(8, 1fr);
   gap: 0.2rem;
 }
 </style>

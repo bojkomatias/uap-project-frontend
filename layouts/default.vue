@@ -59,11 +59,6 @@ export default {
           title: 'Turnera',
           to: '/schedule',
         },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Prueba d3',
-          to: '/probandod3',
-        },
       ],
       miniVariant: false,
       right: true,
@@ -77,8 +72,4 @@ export default {
   },
 }
 </script>
-<style>
-.border-color {
-  border: 0.1rem solid #ed6767;
-}
-</style>
+<style></style>
