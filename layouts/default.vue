@@ -31,8 +31,6 @@
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
       <v-spacer />
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
     </v-app-bar>
     <v-main>
       <v-container>
@@ -64,11 +62,6 @@ export default {
       right: true,
       rightDrawer: false,
     }
-  },
-  computed: {
-    title() {
-      return this.items.find((item) => item.to === this.$route.path).title
-    },
   },
 }
 </script>
