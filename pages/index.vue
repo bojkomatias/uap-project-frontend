@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <Odontogram :odontogram="odontogram" />
-  </div>
+  <div></div>
 </template>
 <script>
 export default {
