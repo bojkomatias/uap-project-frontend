@@ -1,11 +1,16 @@
 <template>
   <div>
-    <template v-if="caseHistory.patient">
-      Historia clinica de :
-      {{ caseHistory.patient.first_name + ' ' + caseHistory.patient.last_name }}
-    </template>
+    <patient-card
+      v-if="caseHistory.patient"
+      :patient="caseHistory.patient"
+      @onChange="editPatientData"
+      @onSubmit="updatePatientData"
+    />
 
-    <v-item-group v-model="window" class="shrink mr-6 d-flex justify-center">
+    <v-item-group
+      v-model="window"
+      class="shrink mr-6 d-flex justify-center pt-5"
+    >
       <v-item v-for="w in windows" :key="w.n" v-slot="{ active, toggle }">
         <div>
           <v-btn :input-value="active" icon @click="toggle">
@@ -152,8 +157,9 @@
 
 <script>
 import Odontogram from '../../components/Odontogram.vue'
+import PatientCard from '../../components/PatientCard.vue'
 export default {
-  components: { Odontogram },
+  components: { Odontogram, PatientCard },
   data() {
     return {
       caseHistory: {},
@@ -181,6 +187,18 @@ export default {
     AppendProcedure(tooth) {
       this.selectedTooth = tooth
       this.dialog = true
+    },
+    editPatientData(patient) {
+      this.patient = patient
+      console.log(patient)
+    },
+    async updatePatientData() {
+      console.log(this.patient)
+      const { data } = await this.$axios.put(
+        `patients/${this.patient.id}`,
+        this.patient
+      )
+      console.log(data)
     },
   },
 }
