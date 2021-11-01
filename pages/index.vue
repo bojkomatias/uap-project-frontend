@@ -11,7 +11,7 @@ export default {
           state: 0,
           procedures: [
             {
-              procedureType: 2,
+              procedureSelector: 2,
               teeth: [
                 {
                   tooth: '11',
@@ -26,7 +26,7 @@ export default {
           state: 1,
           procedures: [
             {
-              procedureType: 3,
+              procedureSelector: 3,
               teeth: [
                 {
                   tooth: '18',
@@ -34,7 +34,7 @@ export default {
               ],
             },
             {
-              procedureType: 7,
+              procedureSelector: 7,
               teeth: [
                 {
                   tooth: '34',

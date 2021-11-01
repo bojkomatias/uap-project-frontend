@@ -1,28 +1,35 @@
 <template>
   <div>
     <div id="odontogram"></div>
+    <div v-if="hoveredData && hoveredData.face">
+      <div v-for="p in hoveredData.face.procedures" :key="p.procedureSelector">
+        <v-icon>{{ typeIcon[p.procedureSelector] }}</v-icon>
+        <v-icon>{{ typeName[p.procedureSelector] }}</v-icon>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import * as d3 from 'd3'
 import { odontogramTemplate } from 'static/odontogramTemplate.js'
-import { odontogram } from 'static/odontogram.js'
-import { stateColors } from 'static/helpers.js'
+import { stateColor, typeName, typeIcon } from 'static/helpers.js'
 export default {
   props: {
-    // odontogram: {
-    //   type: Array,
-    //   default: () => [],
-    // },
+    odontogram: {
+      type: Array,
+      default: () => [],
+    },
     readonly: { type: Boolean, default: false },
   },
   emits: ['toothClicked'],
   data() {
     return {
+      hoveredData: {},
       odontogramTemplate,
-      odontogram,
-      stateColors,
+      stateColor,
+      typeName,
+      typeIcon,
       topPoints: [
         {
           x: 0,
@@ -130,7 +137,8 @@ export default {
         .y(function (d) {
           return d.y
         })
-      d3.select('#odontogram')
+      const teeth = d3
+        .select('#odontogram')
         .selectAll(null)
         .data(this.odontogramTemplate)
         .enter()
@@ -146,6 +154,8 @@ export default {
           return d.faces
         })
         .enter()
+
+      teeth
         .append('path')
         .attr('id', function (d) {
           return `f${d.id}`
@@ -158,13 +168,13 @@ export default {
           else return line(this.centerPoints) + 'Z'
         })
         .style('fill', '#F2F2E6')
-        .style('stroke', 'black')
-        // .on('mouseover', function () {
-        //   d3.select(this).style('fill', '#D3DDE6')
-        // })
-        // .on('mouseout', function () {
-        //   d3.select(this).style('fill', '#F2F2E6')
-        // })
+        .style('stroke', 'gray')
+        .on('mouseover', function () {
+          d3.select(this).style('stroke', 'black')
+        })
+        .on('mouseout', function () {
+          d3.select(this).style('stroke', 'gray')
+        })
         .on('click', function (e, d) {
           return ctx.toothAndFace(
             d3.select(this.parentNode).attr('id'),
@@ -182,21 +192,31 @@ export default {
         })
     },
     toothAndFace(tooth, face) {
+      tooth = tooth.substr(1, 3)
+      face = face.substr(1, 2)
       this.$emit('toothClicked', { tooth, face })
     },
     populateOdontogram() {
-      odontogram.forEach((state) => {
-        state.procedures.forEach((procedure) => {
-          procedure.teeth.forEach((tooth) => {
-            tooth.faces?.forEach((face) => {
-              // Aca se usarian diferentes herramientas estaticas.
-              d3.select(`#d${tooth.tooth}`)
-                .select(`#f${face}`)
-                .style('fill', stateColors[state.state])
+      const ctx = this
+      this.odontogram.forEach((tooth) => {
+        tooth.faces.forEach((face) => {
+          d3.select(`#d${tooth.id}`)
+            .select(`#f${face.id}`)
+            .style(
+              'fill',
+              stateColor[face.procedures[face.procedures.length - 1].state]
+            )
+            .on('mouseover', function () {
+              return ctx.interactWithOdontogram(tooth.id, face)
             })
-          })
+            .on('mouseout', function () {
+              return (ctx.hoveredData = null)
+            })
         })
       })
+    },
+    interactWithOdontogram(tooth, face) {
+      this.hoveredData = { tooth, face }
     },
   },
 }
@@ -206,7 +226,15 @@ export default {
 #odontogram {
   padding-top: 2rem;
   display: inline-grid;
-  grid-template-columns: repeat(7, 1fr) 6rem repeat(8, 1fr);
-  gap: 0.2rem;
+  grid-template-columns: repeat(7, 1fr) 2fr repeat(8, 1fr);
+  gap: 0.4rem;
+}
+.p {
+  display: none;
+}
+@media (max-width: 1000px) {
+  #odontogram {
+    grid-template-columns: repeat(8, 1fr);
+  }
 }
 </style>
