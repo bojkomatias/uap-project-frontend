@@ -1,9 +1,11 @@
 <template>
   <div>
-    <template v-if="caseHistory.patient">
-      Historia clinica de :
-      {{ caseHistory.patient.first_name + ' ' + caseHistory.patient.last_name }}
-    </template>
+    <PatientCard
+      v-if="caseHistory.patient"
+      :patient="caseHistory.patient"
+      @onChange="editPatientData"
+      @onSubmit="updatePatientData"
+    />
 
     <v-item-group class="shrink mr-6 d-flex justify-center">
       <v-item>
@@ -42,6 +44,18 @@ export default {
         `case-histories/${this.$route.params.id}`
       )
       this.caseHistory = data
+    },
+    editPatientData(patient) {
+      this.patient = patient
+      console.log(patient)
+    },
+    async updatePatientData() {
+      console.log(this.patient)
+      const { data } = await this.$axios.put(
+        `patients/${this.patient.id}`,
+        this.patient
+      )
+      console.log(data)
     },
   },
 }
