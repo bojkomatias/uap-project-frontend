@@ -33,9 +33,7 @@
       <v-spacer />
     </v-app-bar>
     <v-main>
-      <v-container>
-        <Nuxt />
-      </v-container>
+      <Nuxt />
     </v-main>
   </v-app>
 </template>
@@ -65,4 +63,25 @@ export default {
   },
 }
 </script>
-<style></style>
+<style>
+/* width */
+::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #043353;
+  border-radius: 0.2rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #292939;
+}
+</style>

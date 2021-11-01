@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable vue/no-mutating-props -->
   <v-card class="mx-auto spacing-playground pb-10" max-width="100%" outlined>
     <v-card-text class="d-flex justify-space-between tertiary">
       <p class="text-h4 text--primary pl-5">
@@ -27,7 +28,6 @@
 
           <v-col cols="12" sm="6" md="2">
             <v-menu
-              v-model="menu2"
               :close-on-content-click="false"
               :nudge-right="40"
               transition="scale-transition"
@@ -45,14 +45,9 @@
                   v-on="on"
                 ></v-text-field>
               </template>
+
               <v-date-picker
-                :value="patient.dob"
-                :max="
-                  new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-                    .toISOString()
-                    .substr(0, 10)
-                "
-                min="1950-01-01"
+                v-model="patient.dob"
                 @change="
                   (value) => $emit('onChange', { ...patient, dob: value })
                 "

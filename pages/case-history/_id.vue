@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable vue/no-unused-vars -->
   <div>
     <PatientCard
       v-if="caseHistory.patient"
@@ -7,22 +8,27 @@
       @onSubmit="updatePatientData"
     />
 
-    <v-item-group class="shrink mr-6 d-flex justify-center">
-      <v-item>
-        <v-btn @click="() => (creatingNewEvolution = !creatingNewEvolution)">
-          <v-icon v-if="!creatingNewEvolution" dark> mdi-plus </v-icon>
-          <v-icon v-else dark> mdi-book-outline </v-icon>
-        </v-btn>
-      </v-item>
-    </v-item-group>
-
-    <v-col>
-      <NewEvolution v-if="creatingNewEvolution" />
-      <EvolutionView
-        v-if="caseHistory.evolutions && !creatingNewEvolution"
-        :evolutions="caseHistory.evolutions"
-      />
-    </v-col>
+    <div class="text-center">
+      <v-btn
+        class="my-6"
+        color="primary"
+        @click="() => (creatingNewEvolution = !creatingNewEvolution)"
+      >
+        <div v-if="!creatingNewEvolution">
+          <v-icon dark> mdi-plus </v-icon>
+          Nueva Evolución
+        </div>
+        <div v-else>
+          <v-icon dark> mdi-book-outline </v-icon>
+          Historial
+        </div>
+      </v-btn>
+    </div>
+    <NewEvolution v-if="creatingNewEvolution" />
+    <EvolutionView
+      v-if="caseHistory.evolutions && !creatingNewEvolution"
+      :evolutions="caseHistory.evolutions"
+    />
   </div>
 </template>
 
@@ -36,7 +42,6 @@ export default {
   },
   mounted() {
     this.fetchCaseHistory()
-    console.log(this.caseHistory)
   },
   methods: {
     async fetchCaseHistory() {
@@ -47,15 +52,9 @@ export default {
     },
     editPatientData(patient) {
       this.patient = patient
-      console.log(patient)
     },
     async updatePatientData() {
-      console.log(this.patient)
-      const { data } = await this.$axios.put(
-        `patients/${this.patient.id}`,
-        this.patient
-      )
-      console.log(data)
+      await this.$axios.put(`patients/${this.patient.id}`, this.patient)
     },
   },
 }
