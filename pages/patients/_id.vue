@@ -555,25 +555,34 @@ export default {
       }
     },
     async fetchPatientData() {
-      const { data } = await this.$axios.get(
-        `patients/${this.$route.params.id}`
-      )
-      const patient = data;
-      this.firstName = patient.first_name;
-      this.lastName = patient.last_name;
-      this.document = patient.document;
-      this.dob = patient.dob;
-      this.phone = patient.phone;
-      this.gender = patient.gender;
-      this.nationality = patient.nationality;
-      this.city = patient.city;
-      this.country = patient.country;
-      this.postalCode = patient.postal_code;
-      this.address = patient.address;
-      this.profession = patient.profession;
-      this.workplace = patient.workplace;
-      this.maritalStatus = patient.marital_status;
-      this.heathcare = patient.healthcare;
+      try {
+        const { data } = await this.$axios.get(
+          `patients/${this.$route.params.id}`
+        )
+        const patient = data;
+        this.firstName = patient.first_name;
+        this.lastName = patient.last_name;
+        this.document = patient.document;
+        this.dob = patient.dob;
+        this.phone = patient.phone;
+        this.gender = patient.gender;
+        this.nationality = patient.nationality;
+        this.city = patient.city;
+        this.country = patient.country;
+        this.postalCode = patient.postal_code;
+        this.address = patient.address;
+        this.profession = patient.profession;
+        this.workplace = patient.workplace;
+        this.maritalStatus = patient.marital_status;
+        this.heathcare = patient.healthcare;
+      } catch (err) {
+        this.text = 'No se encontró ese paciente, intentalo de nuevo.'
+        this.snackbar = true;
+        const vue = this;
+        window.setTimeout(function(){
+          vue.$router.push('/patients');
+        }, 3000);
+      }
     },
     async eliminarPaciente() {
       const { data } = await this.$axios.delete(
