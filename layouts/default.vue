@@ -23,6 +23,20 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
+        <v-list-item>
+          <v-list-item-action>
+            <v-switch
+                v-model="$vuetify.theme.dark"
+                inset
+                style="padding-left: 20px;"
+            ></v-switch>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>
+            Tema oscuro
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
