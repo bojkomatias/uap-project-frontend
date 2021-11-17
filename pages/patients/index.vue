@@ -12,9 +12,9 @@
                         </v-toolbar>
                     </template>
                     <v-card-title>
-                        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
+                        <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar un paciente" single-line hide-details></v-text-field>
                     </v-card-title>               
-                    <v-data-table :headers="headers" :items="patients" @click:row="verPaciente" :search="search"></v-data-table>
+                    <v-data-table :loading="loadingData" :headers="headers" :items="patients" @click:row="verPaciente" :search="search"></v-data-table>
                 </v-card>                       
             </v-container>
         </template>
@@ -26,12 +26,13 @@
     export default {
         data () {
         return {
+            loadingData: true,
             search: '',
             headers: [
                 {text: 'ID', value: 'id', sortable: false},
                 {text: 'Nombre', value: 'first_name'},
                 {text: 'Apellido', value: 'last_name'},
-                {text: 'Ordenes', value: 'orders'} 
+                {text: 'Documento', value: 'document'} 
             ],
 
             patients: [],
@@ -48,6 +49,7 @@
             async getAllPacientens() {
                 const {data} = await this.$axios.get(`patients`)
                 this.patients = data
+                this.loadingData = false
             },
             verPaciente(dato, item){
                 this.$router.push('/patients/'+dato.id);
