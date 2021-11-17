@@ -1,7 +1,12 @@
 <template>
     <v-form @submit.prevent="updatePatient">
       <v-container>
-        <h1 class="mt-10">Paciente: {{firstName}} {{lastName}}</h1>
+      <v-breadcrumbs
+        class="mt-10 px-0"
+        divider=">"
+        :items="getItems()"
+      ></v-breadcrumbs>
+        <h1>Paciente: {{firstName}} {{lastName}}</h1>
         <v-row>
         <!-- columna de usuario -->
           <v-col cols=8>
@@ -525,6 +530,20 @@ export default {
     },
     viewCaseHistory() {
       this.$router.push(`/case-history/${this.$route.params.id}`);
+    },
+    getItems() {
+      const items = [{
+          text: 'Pacientes',
+          disabled: false,
+          href: '/patients',
+        }];
+      items.push({
+          text: this.firstName+' '+this.lastName,
+          disabled: true,
+          href: '#',
+        });
+
+      return items;
     },
     async updatePatient() {
       const patient = {};
