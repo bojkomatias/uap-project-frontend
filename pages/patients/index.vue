@@ -14,7 +14,7 @@
                     <v-card-title>
                         <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar un paciente" single-line hide-details></v-text-field>
                     </v-card-title>               
-                    <v-data-table :loading="loadingData" :headers="headers" :items="patients" @click:row="verPaciente" :search="search"></v-data-table>
+                    <v-data-table :loading="loadingData" :headers="headers" :items="patients" :search="search" @click:row="verPaciente"></v-data-table>
                 </v-card>                       
             </v-container>
         </template>

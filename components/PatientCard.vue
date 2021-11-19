@@ -19,7 +19,7 @@
               :value="patient.document"
               label="Documento"
               required
-              :disabled="disabled"
+              :readonly="disabled"
               @change="
                 (value) => $emit('onChange', { ...patient, document: value })
               "
@@ -41,7 +41,6 @@
                   prepend-icon="mdi-calendar"
                   readonly
                   v-bind="attrs"
-                  :disabled="disabled"
                   v-on="on"
                 ></v-text-field>
               </template>
@@ -60,7 +59,7 @@
               :value="patient.phone"
               label="Cel"
               required
-              :disabled="disabled"
+              :readonly="disabled"
               @change="
                 (value) => $emit('onChange', { ...patient, phone: value })
               "
@@ -72,7 +71,7 @@
               :value="patient.gender"
               :items="genderItems"
               label="Genero"
-              :disabled="disabled"
+              :readonly="disabled"
               @change="
                 (value) => $emit('onChange', { ...patient, gender: value })
               "
@@ -84,7 +83,7 @@
               :value="patient.nationality"
               label="Nacionalidad"
               required
-              :disabled="disabled"
+              :readonly="disabled"
               @change="
                 (value) => $emit('onChange', { ...patient, nationality: value })
               "
@@ -98,7 +97,7 @@
               :value="patient.city"
               label="Ciudad"
               required
-              :disabled="disabled"
+              :readonly="disabled"
               @change="
                 (value) => $emit('onChange', { ...patient, city: value })
               "
@@ -110,7 +109,7 @@
               :value="patient.country"
               label="País"
               required
-              :disabled="disabled"
+              :readonly="disabled"
               @change="
                 (value) => $emit('onChange', { ...patient, country: value })
               "
@@ -122,7 +121,7 @@
               :value="patient.postalCode"
               label="Código postal"
               required
-              :disabled="disabled"
+              :readonly="disabled"
               @change="
                 (value) => $emit('onChange', { ...patient, postalCode: value })
               "
@@ -134,7 +133,7 @@
               :value="patient.address"
               label="Domicilio"
               required
-              :disabled="disabled"
+              :readonly="disabled"
               @change="
                 (value) => $emit('onChange', { ...patient, address: value })
               "
@@ -146,7 +145,7 @@
               :value="patient.profession"
               label="Profesión/Actividad"
               required
-              :disabled="disabled"
+              :readonly="disabled"
               @change="
                 (value) => $emit('onChange', { ...patient, profession: value })
               "
@@ -160,7 +159,7 @@
               :value="patient.workplace"
               label="Lugar de trabajo"
               required
-              :disabled="disabled"
+              :readonly="disabled"
               @change="
                 (value) => $emit('onChange', { ...patient, workplace: value })
               "
@@ -172,7 +171,7 @@
               :value="patient.maritalStatus"
               label="Estado civil"
               required
-              :disabled="disabled"
+              :readonly="disabled"
               @change="
                 (value) =>
                   $emit('onChange', { ...patient, maritalStatus: value })
@@ -185,7 +184,7 @@
               :value="patient.heathcare"
               label="Ob. Social"
               required
-              :disabled="disabled"
+              :readonly="disabled"
               @change="
                 (value) => $emit('onChange', { ...patient, heathcare: value })
               "
