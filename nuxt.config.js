@@ -45,9 +45,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseUrl: 'http://localhost:1337',
-    credentials: false,
-    proxyHeaders: false,
+    baseUrl: 'http://localhost:1337'
   },
 
 
@@ -77,6 +75,6 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    standalone: true
+    standalone: false
   }
 }
