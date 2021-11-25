@@ -45,7 +45,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseUrl: 'http://localhost:1337/api'
+    baseUrl: 'http://practicas-fcs.uap.edu.ar/api'
   },
 
 
