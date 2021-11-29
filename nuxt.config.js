@@ -60,15 +60,17 @@ export default {
         light: {
           primary: '#043353', // #292939
           accent: '#ED6767', // #ED6767
-          secondary: '#292939', // #043353
-          tertiary: '#D3DDE6',
-          quaternary: '#F2F2E6',
+          secondary: '#020314', // #043353
+          tertiary: '#D3DDE6', // #020314
+          quaternary: '#FAF8F0',
 
         },
         dark: {
-          primary: '#043353', // #292939
+          primary: '#D3DDE6', // #292939
           accent: '#ED6767', // #ED6767
-          secondary: '#292939', // #043353
+          secondary: '#FAF8F0', // #043353
+          tertiary: '#D3DDE6', // #020314
+          quaternary: '#020314',
         }
       }
     }
