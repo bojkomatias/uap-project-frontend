@@ -7,7 +7,7 @@
       fixed
       app
     >
-      <v-list>
+      <v-list class="d-flex flex-column" height="100%">
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -23,18 +23,16 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item
+          class="mt-auto"
+          @click="() => ($vuetify.theme.dark = !$vuetify.theme.dark)"
+        >
           <v-list-item-action>
-            <v-switch
-                v-model="$vuetify.theme.dark"
-                inset
-                style="padding-left: 20px;"
-            ></v-switch>
+            <v-icon v-if="$vuetify.theme.dark">mdi-brightness-7</v-icon>
+            <v-icon v-if="!$vuetify.theme.dark">mdi-brightness-2</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>
-            Tema oscuro
-            </v-list-item-title>
+            {{ `Tema ${!$vuetify.theme.dark ? 'oscuro' : 'claro'}` }}
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -97,5 +95,8 @@ export default {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #292939;
+}
+.v-list-item {
+  flex: 0;
 }
 </style>
