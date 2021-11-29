@@ -12,7 +12,7 @@
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
-          active-class="accent--text border-color rounded-xl"
+          active-class="primary--text border-color rounded-xl"
           router
           exact
         >

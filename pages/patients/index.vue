@@ -1,63 +1,88 @@
 <template>
-    <div>
-        <template>           
-            <v-container>
-                <v-card>
-                    <template>
-                        <v-toolbar flat>
-                            <v-spacer></v-spacer>
-                            <v-btn color="primary" class="mb-2" @click="$router.push('/patients/new')">
-                                Nuevo Paciente
-                            </v-btn>            
-                        </v-toolbar>
-                    </template>
-                    <v-card-title>
-                        <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar un paciente" single-line hide-details></v-text-field>
-                    </v-card-title>               
-                    <v-data-table :loading="loadingData" :headers="headers" :items="patients" :search="search" @click:row="verPaciente"></v-data-table>
-                </v-card>                       
-            </v-container>
-        </template>
-    </div>    
+  <div>
+    <v-container>
+      <v-card>
+        <v-toolbar flat>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="tertiary"
+            class="mb-2"
+            @click="$router.push('/patients/new')"
+          >
+            Nuevo Paciente
+          </v-btn>
+        </v-toolbar>
+        <v-card-title>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Buscar un paciente"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-card-title>
+        <v-data-table
+          class=""
+          :loading="loadingData"
+          :headers="headers"
+          :items="patients"
+          :search="search"
+          @click:row="verPaciente"
+        >
+          <template #item.action="{ item }">
+            <v-btn
+              outlined
+              color="primary"
+              @click="
+                (e) => {
+                  e.stopPropagation()
+                  $router.push(`/case-history/${item.case_history.id}`)
+                }
+              "
+              >Historia Clinica</v-btn
+            >
+          </template>
+        </v-data-table>
+      </v-card>
+    </v-container>
+  </div>
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      loadingData: true,
+      search: '',
+      headers: [
+        { text: 'ID', value: 'id', sortable: false },
+        { text: 'Nombre', value: 'first_name' },
+        { text: 'Apellido', value: 'last_name' },
+        { text: 'Documento', value: 'document' },
+        { text: 'Action', value: 'action' },
+      ],
 
-    export default {
-        data () {
-        return {
-            loadingData: true,
-            search: '',
-            headers: [
-                {text: 'ID', value: 'id', sortable: false},
-                {text: 'Nombre', value: 'first_name'},
-                {text: 'Apellido', value: 'last_name'},
-                {text: 'Documento', value: 'document'} 
-            ],
+      patients: [],
 
-            patients: [],
-
-            patient: {},
-        }
-        },
-
-        mounted() {
-            this.getAllPacientens()
-        },
-
-        methods: {
-            async getAllPacientens() {
-                const {data} = await this.$axios.get(`patients`)
-                this.patients = data
-                this.loadingData = false
-            },
-            verPaciente(dato, item){
-                this.$router.push('/patients/'+dato.id);
-            }
-        },
+      patient: {},
     }
+  },
+
+  mounted() {
+    this.getAllPacientens()
+  },
+
+  methods: {
+    async getAllPacientens() {
+      const { data } = await this.$axios.get(`patients`)
+      this.patients = data
+      this.loadingData = false
+    },
+    verPaciente(dato, item) {
+      this.$router.push('/patients/' + dato.id)
+    },
+  },
+}
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
