@@ -20,12 +20,10 @@
       <div class="d-flex justify-space-around">
         <v-switch
           v-model="newEvolution.tartar"
-          flat
           :label="`Presencia de sarro`"
         ></v-switch>
         <v-switch
           v-model="newEvolution.periodontal_disease"
-          flat
           :label="`Enfermedad Periodontal`"
         ></v-switch>
       </div>

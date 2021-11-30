@@ -5,7 +5,7 @@
         <v-toolbar flat>
           <v-spacer></v-spacer>
           <v-btn
-            color="tertiary"
+            color="primary"
             class="mb-2"
             @click="$router.push('/patients/new')"
           >
