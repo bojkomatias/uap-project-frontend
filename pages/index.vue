@@ -11,26 +11,7 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      mouseX: null,
-      mouseY: null,
-    }
-  },
-  mounted() {
-    const el = document.getElementById('text')
-    el.addEventListener('mousemove', function (e) {
-      this.handleEvent(e)
-    })
-  },
-  methods: {
-    handleEvent(e) {
-      // eslint-disable-next-line no-console
-      console.log(e)
-    },
-  },
-}
+export default {}
 </script>
 
 <style scoped>

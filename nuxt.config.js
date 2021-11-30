@@ -61,8 +61,8 @@ export default {
           primary: '#043353', // #292939
           accent: '#ED6767', // #ED6767
           secondary: '#020314', // #043353
-          tertiary: '#D3DDE6', // #020314
-          quaternary: '#FAF8F0',
+          tertiary: '#D3DDE6', // #e4e8eb
+          quaternary: '#e4e8eb',
 
         },
         dark: {
