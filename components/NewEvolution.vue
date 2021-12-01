@@ -1,27 +1,44 @@
 <template>
   <div>
-    <v-container>
-      <form @submit.prevent="saveEvolution">
-        <v-text-field
-          :value="formattedDate"
-          label="Fecha"
-          readonly
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model="newEvolution.motive"
-          label="Motivo"
-          required
-        ></v-text-field>
-        <v-textarea
-          v-model="newEvolution.evolution"
-          label="Desarrollo"
-        ></v-textarea>
-        <odontogram
-          ref="odontogram"
-          :odontogram="newEvolution.odontogram"
-          @toothClicked="openDialog"
-        />
+    <form @submit.prevent="saveEvolution">
+      <v-text-field
+        :value="formattedDate"
+        label="Fecha"
+        readonly
+        required
+      ></v-text-field>
+      <v-text-field
+        v-model="newEvolution.motive"
+        label="Motivo"
+        required
+      ></v-text-field>
+      <odontogram
+        ref="odontogram"
+        :odontogram="newEvolution.odontogram"
+        @toothClicked="openDialog"
+      />
+      <div class="d-flex justify-space-around">
+        <v-switch
+          v-model="newEvolution.tartar"
+          :label="`Presencia de sarro`"
+        ></v-switch>
+        <v-switch
+          v-model="newEvolution.periodontal_disease"
+          :label="`Enfermedad Periodontal`"
+        ></v-switch>
+      </div>
+      <v-textarea
+        v-model="newEvolution.observation"
+        label="Observación"
+      ></v-textarea>
+      <v-textarea
+        v-model="newEvolution.treatment_plan"
+        label="Plan de tratamiento"
+      ></v-textarea>
+      <v-textarea
+        v-model="newEvolution.diagnosis"
+        label="Diagnóstico"
+      ></v-textarea>
 
         <div class="d-flex justify-center">
           <v-btn type="submit"> Guardar </v-btn>

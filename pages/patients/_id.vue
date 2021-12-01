@@ -6,11 +6,17 @@
         divider=">"
         :items="getItems()"
       ></v-breadcrumbs>
-      <h1>Paciente: {{ firstName }} {{ lastName }}</h1>
+      <div class="d-flex justify-space-between pb-5">
+        <h1>Paciente: {{ firstName }} {{ lastName }}</h1>
+        <v-btn elevation="2" large @click="viewCaseHistory()"
+          >VER HISTORIA CLINICA</v-btn
+        >
+      </div>
+
       <v-row>
         <!-- columna de usuario -->
-        <v-col cols="9">
-          <v-card class="mt-5 pa-10">
+        <v-col>
+          <v-card class="mx-auto spacing-playground pb-10 pa-10">
             <v-text-field
               v-model="firstName"
               label="Nombre"
