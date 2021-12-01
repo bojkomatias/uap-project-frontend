@@ -1,12 +1,17 @@
 <template>
   <div>
     <div id="odontogram"></div>
-    <div v-if="hoveredData && hoveredData.face">
-      <div v-for="p in hoveredData.face.procedures" :key="p.procedureSelector">
-        <v-icon>{{ typeIcon[p.procedureSelector] }}</v-icon>
-        <v-icon>{{ typeName[p.procedureSelector] }}</v-icon>
+    <v-card height="50" class="pa-3 d-flex justify-around" flat>
+      <div v-if="hoveredData && hoveredData.face">
+        <div
+          v-for="p in hoveredData.face.procedures"
+          :key="p.procedureSelector"
+        >
+          <v-icon>{{ typeIcon[p.procedureSelector] }}</v-icon>
+          <v-icon>{{ typeName[p.procedureSelector] }}</v-icon>
+        </div>
       </div>
-    </div>
+    </v-card>
   </div>
 </template>
 

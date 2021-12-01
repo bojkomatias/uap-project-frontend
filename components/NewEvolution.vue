@@ -40,8 +40,11 @@
         label="Diagnóstico"
       ></v-textarea>
 
-      <v-btn type="submit"> Guardar </v-btn>
-    </form>
+        <div class="d-flex justify-center">
+          <v-btn type="submit"> Guardar </v-btn>
+        </div>
+      </form>
+    </v-container>
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
         <form @submit.prevent="appendProcedure">

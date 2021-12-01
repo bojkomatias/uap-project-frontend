@@ -174,15 +174,18 @@
         </v-col>
 
         <!-- Acciones del paciente -->
+        <v-col cols="3" class="pt-12">
+          <v-btn block elevation="2" large @click="viewCaseHistory()"
+            >VER HISTORIA CLINICA</v-btn
+          >
+        </v-col>
       </v-row>
     </v-container>
     <v-snackbar v-model="snackbar" :vertical="vertical">
       {{ text }}
 
       <template #action="{ attrs }">
-        <v-btn color="indigo" text v-bind="attrs" @click="snackbar = false">
-          Close
-        </v-btn>
+        <v-btn text v-bind="attrs" @click="snackbar = false"> Close </v-btn>
       </template>
     </v-snackbar>
     <v-dialog v-model="dialog" persistent max-width="290">
