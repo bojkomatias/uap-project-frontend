@@ -1,29 +1,33 @@
 <template>
   <div>
-    <form @submit.prevent="saveEvolution">
-      <v-text-field
-        :value="formattedDate"
-        label="Fecha"
-        readonly
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="newEvolution.motive"
-        label="Motivo"
-        required
-      ></v-text-field>
-      <v-textarea
-        v-model="newEvolution.evolution"
-        label="Desarrollo"
-      ></v-textarea>
-      <odontogram
-        ref="odontogram"
-        :odontogram="newEvolution.odontogram"
-        @toothClicked="openDialog"
-      />
+    <v-container>
+      <form @submit.prevent="saveEvolution">
+        <v-text-field
+          :value="formattedDate"
+          label="Fecha"
+          readonly
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="newEvolution.motive"
+          label="Motivo"
+          required
+        ></v-text-field>
+        <v-textarea
+          v-model="newEvolution.evolution"
+          label="Desarrollo"
+        ></v-textarea>
+        <odontogram
+          ref="odontogram"
+          :odontogram="newEvolution.odontogram"
+          @toothClicked="openDialog"
+        />
 
-      <v-btn type="submit"> Guardar </v-btn>
-    </form>
+        <div class="d-flex justify-center">
+          <v-btn type="submit"> Guardar </v-btn>
+        </div>
+      </form>
+    </v-container>
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
         <form @submit.prevent="appendProcedure">

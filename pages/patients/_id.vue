@@ -9,7 +9,7 @@
       <h1>Paciente: {{ firstName }} {{ lastName }}</h1>
       <v-row>
         <!-- columna de usuario -->
-        <v-col cols="8">
+        <v-col cols="9">
           <v-card class="mt-5 pa-10">
             <v-text-field
               v-model="firstName"
@@ -168,7 +168,7 @@
         </v-col>
 
         <!-- Acciones del paciente -->
-        <v-col cols="4">
+        <v-col cols="3" class="pt-12">
           <v-btn block elevation="2" large @click="viewCaseHistory()"
             >VER HISTORIA CLINICA</v-btn
           >
@@ -179,9 +179,7 @@
       {{ text }}
 
       <template #action="{ attrs }">
-        <v-btn color="indigo" text v-bind="attrs" @click="snackbar = false">
-          Close
-        </v-btn>
+        <v-btn text v-bind="attrs" @click="snackbar = false"> Close </v-btn>
       </template>
     </v-snackbar>
     <v-dialog v-model="dialog" persistent max-width="290">

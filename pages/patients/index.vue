@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container>
-      <v-card>
+      <v-card flat>
         <v-toolbar flat>
           <v-spacer></v-spacer>
           <v-btn
@@ -27,9 +27,21 @@
           :headers="headers"
           :items="patients"
           :search="search"
-          @click:row="verPaciente"
+          flat
         >
-          <template #item.action="{ item }">
+          <template #item.action="{ item }" class="mr-0">
+            <v-btn
+              outlined
+              color="primary"
+              @click="
+                (e) => {
+                  e.stopPropagation()
+                  $router.push(`/patients/${item.id}`)
+                }
+              "
+            >
+              Ver Paciente
+            </v-btn>
             <v-btn
               outlined
               color="primary"
@@ -39,8 +51,9 @@
                   $router.push(`/case-history/${item.case_history.id}`)
                 }
               "
-              >Historia Clinica</v-btn
             >
+              Historia Clinica
+            </v-btn>
           </template>
         </v-data-table>
       </v-card>
@@ -59,7 +72,7 @@ export default {
         { text: 'Nombre', value: 'first_name' },
         { text: 'Apellido', value: 'last_name' },
         { text: 'Documento', value: 'document' },
-        { text: 'Action', value: 'action' },
+        { text: 'Action', value: 'action', width: '400' },
       ],
 
       patients: [],
@@ -77,9 +90,6 @@ export default {
       const { data } = await this.$axios.get(`patients`)
       this.patients = data
       this.loadingData = false
-    },
-    verPaciente(dato, item) {
-      this.$router.push('/patients/' + dato.id)
     },
   },
 }
