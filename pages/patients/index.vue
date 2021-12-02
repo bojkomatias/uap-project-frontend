@@ -48,7 +48,7 @@
               @click="
                 (e) => {
                   e.stopPropagation()
-                  $router.push(`/case-history/${item.case_history.id}`)
+                  $router.push(`/case-history/${item.id}`)
                 }
               "
             >

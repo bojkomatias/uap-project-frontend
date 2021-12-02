@@ -89,6 +89,7 @@
 <script>
 import { stateColor, procedureSelector, colorSelector } from 'static/helpers.js'
 export default {
+  emits: ['created'],
   data() {
     return {
       newEvolution: {
@@ -172,11 +173,12 @@ export default {
       }, 500)
     },
     async saveEvolution() {
-      console.log(this.newEvolution)
       const res = await this.$axios.post(`evolutions`, this.newEvolution)
-      console.log(res)
+      if(res.status === 200)
+        this.$emit('created')
+
     },
-  },
+  }
 }
 </script>
 

@@ -192,6 +192,7 @@ export default {
         .append('text')
         .attr('y', 13)
         .attr('x', 17)
+        .attr('color', '#ff1232')
         .text(function (d) {
           return d?.id
         })

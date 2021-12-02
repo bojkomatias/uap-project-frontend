@@ -1,15 +1,14 @@
 <template>
   <!-- eslint-disable vue/no-unused-vars -->
-  <div>
-    <v-container>
+  <v-container>
+    <template v-if="caseHistory">
       <PatientCard
-        v-if="caseHistory.patient"
         :patient="caseHistory.patient"
         :is-minimal="true"
         @onChange="editPatientData"
         @onSubmit="updatePatientData"
       />
-      <v-card>
+      <v-card flat class="pa-3">
         <div class="text-center">
           <v-btn
             class="my-6"
@@ -26,10 +25,28 @@
             </div>
           </v-btn>
         </div>
-        <NewEvolution v-if="creatingNewEvolution" />
+        <NewEvolution
+          v-if="creatingNewEvolution"
+          @created="
+            () => {
+              snackbar = true
+              creatingNewEvolution = false
+              fetchCaseHistory()
+            }
+          "
+        />
+
+        <v-snackbar v-model="snackbar" :vertical="vertical">
+          Evolucion guardada con exito
+
+          <template #action="{ attrs }">
+            <v-btn text v-bind="attrs" @click="snackbar = false"> Close </v-btn>
+          </template>
+        </v-snackbar>
 
         <!-- Aca visualizar las evoluciones minimalistas -->
         <v-data-table
+          v-if="caseHistory.evolutions"
           class="cursor-pointer"
           :loading="loadingData"
           :headers="headers"
@@ -52,15 +69,16 @@
           </template>
         </v-data-table>
       </v-card>
-    </v-container>
-  </div>
+    </template>
+  </v-container>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      caseHistory: {},
+      snackbar: false,
+      caseHistory: null,
       creatingNewEvolution: false,
       headers: [
         { text: 'ID', value: 'id', sortable: false },
@@ -75,10 +93,19 @@ export default {
   },
   methods: {
     async fetchCaseHistory() {
-      const { data } = await this.$axios.get(
-        `case-histories/${this.$route.params.id}`
+      const { data: history } = await this.$axios.get(
+        `case-histories?patient.id=${this.$route.params.id}`
       )
-      this.caseHistory = data
+      this.caseHistory = history[0]
+      if (!history[0]) {
+        this.createCaseHistory()
+      }
+    },
+    async createCaseHistory() {
+      const res = await this.$axios.post(`case-histories`, {
+        patient: this.$route.params.id,
+      })
+      if (res.status === 200) this.caseHistory = res.data
     },
     editPatientData(patient) {
       this.caseHistory.patient = patient

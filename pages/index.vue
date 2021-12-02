@@ -11,7 +11,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  layout: 'unauthenticated',
+}
 </script>
 
 <style scoped>

@@ -185,7 +185,7 @@
       {{ text }}
 
       <template #action="{ attrs }">
-        <v-btn text v-bind="attrs" @click="snackbar = false"> Close </v-btn>
+        <v-btn text v-bind="attrs" @click="snackbar = false"> Cerrar </v-btn>
       </template>
     </v-snackbar>
     <v-dialog v-model="dialog" persistent max-width="290">
