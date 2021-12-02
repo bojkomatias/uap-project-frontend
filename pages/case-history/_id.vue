@@ -13,6 +13,7 @@
           <v-btn
             class="my-6"
             color="primary"
+            outlined
             @click="() => (creatingNewEvolution = !creatingNewEvolution)"
           >
             <div v-if="!creatingNewEvolution">
@@ -29,20 +30,11 @@
           v-if="creatingNewEvolution"
           @created="
             () => {
-              snackbar = true
               creatingNewEvolution = false
               fetchCaseHistory()
             }
           "
         />
-
-        <v-snackbar v-model="snackbar" :vertical="vertical">
-          Evolucion guardada con exito
-
-          <template #action="{ attrs }">
-            <v-btn text v-bind="attrs" @click="snackbar = false"> Close </v-btn>
-          </template>
-        </v-snackbar>
 
         <!-- Aca visualizar las evoluciones minimalistas -->
         <v-data-table
@@ -77,7 +69,6 @@
 export default {
   data() {
     return {
-      snackbar: false,
       caseHistory: null,
       creatingNewEvolution: false,
       headers: [

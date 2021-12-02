@@ -5,11 +5,11 @@
         <h1 id="text" class="primary--text display-1 text-h1 text-center">
           Administrador de Prácticas Odontológicas
         </h1>
-        
       </div>
-      <v-btn x-large  color="primary" class="mt-6">
-              <div class="d-flex justify-center mr-4 microsoft"></div> Iniciar sesión con Microsoft
-            </v-btn>
+      <v-btn x-large color="primary" class="mt-6">
+        <div class="d-flex justify-center mr-4 microsoft"></div>
+        Iniciar sesión con Microsoft
+      </v-btn>
     </div>
   </div>
 </template>

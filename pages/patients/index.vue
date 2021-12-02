@@ -7,6 +7,7 @@
           <v-btn
             color="primary"
             class="mb-2"
+            outlined
             @click="$router.push('/patients/new')"
           >
             Nuevo Paciente

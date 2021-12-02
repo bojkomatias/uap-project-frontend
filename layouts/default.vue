@@ -58,11 +58,6 @@ export default {
       drawer: false,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Main',
-          to: '/',
-        },
-        {
           icon: 'mdi-chart-bubble',
           title: 'Pacientes',
           to: '/patients',

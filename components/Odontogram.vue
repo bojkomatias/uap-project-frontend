@@ -172,7 +172,7 @@ export default {
           if (d.id === '3') return line(this.botPoints) + 'Z'
           else return line(this.centerPoints) + 'Z'
         })
-        .style('fill', '#F2F2E6')
+        .style('fill', '#FAF8F0')
         .style('stroke', 'gray')
         .on('mouseover', function () {
           d3.select(this).style('stroke', 'black')
@@ -192,7 +192,7 @@ export default {
         .append('text')
         .attr('y', 13)
         .attr('x', 17)
-        .attr('color', '#ff1232')
+        .style('fill', 'gray')
         .text(function (d) {
           return d?.id
         })

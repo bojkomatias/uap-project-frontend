@@ -1,22 +1,37 @@
 <template>
-  <div class="pa-15">
+  <v-container>
     <form @submit.prevent="saveEvolution">
-      <v-text-field
-        :value="formattedDate"
-        label="Fecha"
-        readonly
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="newEvolution.motive"
-        label="Motivo"
-        required
-      ></v-text-field>
-      <odontogram
-        ref="odontogram"
-        :odontogram="newEvolution.odontogram"
-        @toothClicked="openDialog"
-      />
+      <v-row>
+        <v-text-field
+          v-model="newEvolution.motive"
+          label="Motivo"
+          required
+          class="px-4"
+        ></v-text-field>
+        <v-text-field
+          :value="formattedDate"
+          label="Fecha"
+          readonly
+          required
+          class="px-4"
+        ></v-text-field>
+      </v-row>
+
+      <v-textarea
+        v-model="newEvolution.observation"
+        label="Observación"
+        rows="2"
+      ></v-textarea>
+      <v-textarea
+        v-model="newEvolution.treatment_plan"
+        label="Plan de tratamiento"
+        rows="2"
+      ></v-textarea>
+      <v-textarea
+        v-model="newEvolution.diagnosis"
+        label="Diagnóstico"
+        rows="2"
+      ></v-textarea>
       <div class="d-flex justify-space-around">
         <v-switch
           v-model="newEvolution.tartar"
@@ -27,24 +42,23 @@
           :label="`Enfermedad Periodontal`"
         ></v-switch>
       </div>
-      <v-textarea
-        v-model="newEvolution.observation"
-        label="Observación"
-      ></v-textarea>
-      <v-textarea
-        v-model="newEvolution.treatment_plan"
-        label="Plan de tratamiento"
-      ></v-textarea>
-      <v-textarea
-        v-model="newEvolution.diagnosis"
-        label="Diagnóstico"
-      ></v-textarea>
+      <odontogram
+        ref="odontogram"
+        :odontogram="newEvolution.odontogram"
+        @toothClicked="openDialog"
+      />
+      <div class="d-flex justify-center">
+        <v-btn type="submit"> Guardar </v-btn>
+      </div>
+    </form>
+    <hr class="my-6" />
+    <v-snackbar v-model="snackbar" vertical>
+      {{ text }}
 
-        <div class="d-flex justify-center">
-          <v-btn type="submit"> Guardar </v-btn>
-        </div>
-      </form>
-    </v-container>
+      <template #action="{ attrs }">
+        <v-btn text v-bind="attrs" @click="snackbar = false"> Close </v-btn>
+      </template>
+    </v-snackbar>
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
         <form @submit.prevent="appendProcedure">
@@ -58,6 +72,7 @@
               <v-row>
                 <v-col cols="12" sm="6">
                   <v-autocomplete
+                    :value="selectedProcedure"
                     :items="procedureSelector"
                     label="Procedimiento"
                     @change="(value) => (selectedProcedure = value)"
@@ -65,6 +80,7 @@
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-autocomplete
+                    :value="selectedProcedure"
                     :items="colorSelector"
                     label="Estado"
                     @change="(value) => (selectedState = value)"
@@ -83,7 +99,7 @@
         </form>
       </v-card>
     </v-dialog>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -104,6 +120,8 @@ export default {
       stateColor,
       procedureSelector,
       colorSelector,
+      snackbar: false,
+      text: null,
     }
   },
   computed: {
@@ -114,11 +132,12 @@ export default {
   methods: {
     openDialog(tooth) {
       this.selectedTooth = tooth
-      this.selectedProcedure = null
-      this.selectedState = null
       this.dialog = true
     },
     appendProcedure() {
+      if (!this.selectedProcedure) return
+      if (this.selectedState === null) return
+
       const exTooth = this.newEvolution.odontogram.find(
         (e) => e.id === this.selectedTooth.tooth
       )
@@ -169,16 +188,29 @@ export default {
       }
       setTimeout(() => {
         this.$refs.odontogram.populateOdontogram()
+        this.selectedProcedure = null
+        this.selectedState = null
         this.dialog = false
       }, 500)
     },
     async saveEvolution() {
       const res = await this.$axios.post(`evolutions`, this.newEvolution)
-      if(res.status === 200)
-        this.$emit('created')
-
+      if (res.status === 200) {
+        this.text = 'Evolución guardada con exito!'
+        this.snackbar = true
+        setTimeout(() => {
+          this.snackbar = false
+          this.$emit('created')
+        }, 2000)
+      } else {
+        this.text = 'Ocurrio un problema al guardar la evolución'
+        this.snackbar = true
+        setTimeout(() => {
+          this.snackbar = false
+        }, 2000)
+      }
     },
-  }
+  },
 }
 </script>
 

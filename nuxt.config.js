@@ -63,7 +63,6 @@ export default {
           secondary: '#020314', // #043353
           tertiary: '#D3DDE6', // #e4e8eb
           quaternary: '#e4e8eb',
-
         },
         dark: {
           primary: '#D3DDE6', // #292939

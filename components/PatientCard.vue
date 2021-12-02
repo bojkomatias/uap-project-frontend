@@ -2,9 +2,7 @@
   <!-- eslint-disable vue/no-mutating-props -->
   <v-card class="mx-auto spacing-playground" max-width="100%" flat>
     <v-card-text class="d-flex justify-space-between">
-      <p class="text-h3 pl-4 pt-4">
-        {{ patient.first_name }} {{ patient.last_name }}
-      </p>
+      <h1>{{ patient.first_name }} {{ patient.last_name }}</h1>
       <v-card-actions>
         <v-btn v-if="show == true" icon @click="disabled = !disabled">
           <v-icon v-if="disabled == true">mdi-pencil</v-icon>
@@ -23,7 +21,7 @@
       <div v-show="show">
         <v-form @submit.prevent="() => $emit('onSubmit')">
           <v-container>
-            <v-row class="d-flex justify-space-around">
+            <v-row class="d-flex justify-space-between">
               <v-col cols="12" :md="isMinimal ? '2' : '6'">
                 <v-text-field
                   :value="patient.document"
@@ -91,7 +89,7 @@
               </v-col>
             </v-row>
 
-            <v-row class="d-flex justify-space-around">
+            <v-row class="d-flex justify-space-between">
               <v-col cols="12" :md="isMinimal ? '2' : '6'">
                 <v-text-field
                   :value="patient.nationality"
@@ -142,7 +140,7 @@
               </v-col>
             </v-row>
 
-            <v-row class="d-flex justify-space-around">
+            <v-row class="d-flex justify-space-between">
               <v-col cols="12" :md="isMinimal ? '2' : '6'">
                 <v-text-field
                   :value="patient.address"
@@ -193,7 +191,7 @@
                 ></v-text-field>
               </v-col>
             </v-row>
-            <v-row class="d-flex justify-space-around">
+            <v-row class="d-flex justify-space-between">
               <v-col cols="2">
                 <v-text-field
                   :value="patient.heathcare"
