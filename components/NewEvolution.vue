@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pa-15">
     <form @submit.prevent="saveEvolution">
       <v-text-field
         :value="formattedDate"
