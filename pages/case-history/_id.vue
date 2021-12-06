@@ -62,6 +62,13 @@
         </v-data-table>
       </v-card>
     </template>
+    <v-snackbar v-model="snackbar" :vertical="vertical">
+      {{ text }}
+
+      <template #action="{ attrs }">
+        <v-btn text v-bind="attrs" @click="snackbar = false"> Cerrar </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -77,6 +84,7 @@ export default {
         { text: 'Motivo', value: 'motive' },
         { text: 'Action', value: 'action', width: '200' },
       ],
+      snackbar: false,
     }
   },
   mounted() {
@@ -102,10 +110,24 @@ export default {
       this.caseHistory.patient = patient
     },
     async updatePatientData() {
-      await this.$axios.put(
+      const res = await this.$axios.put(
         `patients/${this.caseHistory.patient.id}`,
         this.caseHistory.patient
       )
+      if (res.status === 200) {
+        this.text = 'Se actualizaron los datos del paciente.'
+        this.snackbar = true
+        this.disabled = true
+        setTimeout(() => {
+          this.snackbar = false
+        }, 3000)
+      } else {
+        this.text = 'Ocurrió un error al actualizar el paciente.'
+        this.snackbar = true
+        setTimeout(() => {
+          this.snackbar = false
+        }, 3000)
+      }
     },
   },
 }

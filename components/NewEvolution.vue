@@ -48,7 +48,7 @@
         @toothClicked="openDialog"
       />
       <div class="d-flex justify-center">
-        <v-btn type="submit"> Guardar </v-btn>
+        <v-btn type="submit" outlined color="primary"> Guardar </v-btn>
       </div>
     </form>
     <hr class="my-6" />
@@ -91,10 +91,10 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialog = false">
+            <v-btn outlined color="primary" text @click="dialog = false">
               Cancelar
             </v-btn>
-            <v-btn color="blue darken-1" type="submit" text> Guardar </v-btn>
+            <v-btn outlined color="primary" type="submit" text> Guardar </v-btn>
           </v-card-actions>
         </form>
       </v-card>
