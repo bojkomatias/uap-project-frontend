@@ -194,7 +194,7 @@
             <v-row class="d-flex justify-space-between">
               <v-col cols="2">
                 <v-text-field
-                  :value="patient.heathcare"
+                  :value="patient.healthcare"
                   label="Ob. Social"
                   required
                   :disabled="disabled"
@@ -206,7 +206,13 @@
               </v-col>
 
               <v-col cols="8" class="d-flex justify-end align-center">
-                <v-btn v-if="disabled == false" class="" type="submit">
+                <v-btn
+                  v-if="disabled == false"
+                  outlined
+                  color="primary"
+                  class=""
+                  type="submit"
+                >
                   Guardar
                 </v-btn>
               </v-col>
