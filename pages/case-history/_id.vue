@@ -46,6 +46,9 @@
           :search="search"
           flat
         >
+          <template #item.date="{ item }">
+            {{ formattedDate(item.date) }}
+          </template>
           <template #item.action="{ item }">
             <v-btn
               outlined
@@ -74,6 +77,7 @@
 
 <script>
 export default {
+  middleware: ['auth'],
   data() {
     return {
       caseHistory: null,
@@ -87,10 +91,14 @@ export default {
       snackbar: false,
     }
   },
+
   mounted() {
     this.fetchCaseHistory()
   },
   methods: {
+    formattedDate(date) {
+      return new Date(date).toLocaleDateString('es-AR')
+    },
     async fetchCaseHistory() {
       const { data: history } = await this.$axios.get(
         `case-histories?patient.id=${this.$route.params.id}`

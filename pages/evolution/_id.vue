@@ -47,22 +47,26 @@
         :odontogram="evolution.odontogram"
         readonly
       />
-      {{ evolution }}
     </v-container>
   </div>
 </template>
 
 <script>
 export default {
+  middleware: ['auth'],
   data() {
     return {
       evolution: {},
     }
   },
+  computed: {
+    formattedDate() {
+      return new Date(this.evolution.date).toLocaleDateString('es-AR')
+    },
+  },
   mounted() {
     this.fetchEvolution()
   },
-
   methods: {
     async fetchEvolution() {
       const { data } = await this.$axios.get(

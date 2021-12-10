@@ -129,8 +129,11 @@ export default {
   },
   mounted() {
     this.drawOdontogram()
-    this.populateOdontogram()
+    setTimeout(() => {
+      this.populateOdontogram()
+    }, 500)
   },
+
   methods: {
     drawOdontogram() {
       const ctx = this
@@ -203,6 +206,7 @@ export default {
       this.$emit('toothClicked', { tooth, face })
     },
     populateOdontogram() {
+      console.log('Populating')
       const ctx = this
       this.odontogram.forEach((tooth) => {
         tooth.faces.forEach((face) => {

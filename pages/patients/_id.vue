@@ -208,6 +208,7 @@
 
 <script>
 export default {
+  middleware: ['auth'],
   props: {
     patient: {
       type: Object,

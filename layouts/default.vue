@@ -37,12 +37,20 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app color="primary">
+    <v-app-bar
+      :clipped-left="clipped"
+      fixed
+      app
+      :color="$vuetify.theme.dark ? '#043353' : 'primary'"
+    >
       <v-app-bar-nav-icon color="white" @click.stop="drawer = !drawer" />
       <v-btn color="white" icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
       <v-spacer />
+      <v-btn color="tertiary" outlined @click="() => $auth.logout()"
+        >Salir</v-btn
+      >
     </v-app-bar>
     <v-main>
       <Nuxt />
@@ -52,6 +60,7 @@
 
 <script>
 export default {
+  middleware: ['auth'],
   data() {
     return {
       clipped: true,
