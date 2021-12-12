@@ -2,13 +2,14 @@
   <div>
     <div id="odontogram"></div>
     <v-card height="50" class="pa-3 d-flex justify-around" flat>
-      <div v-if="hoveredData && hoveredData.face">
+      <div v-if="hoveredData && hoveredData.face" class="leading-loose">
         <div
           v-for="p in hoveredData.face.procedures"
           :key="p.procedureSelector"
         >
-          <v-icon>{{ typeIcon[p.procedureSelector] }}</v-icon>
-          <v-icon>{{ typeName[p.procedureSelector] }}</v-icon>
+          <v-icon :color="stateColor[p.state]">
+            {{ typeName[p.procedureSelector] }}
+          </v-icon>
         </div>
       </div>
     </v-card>
@@ -18,7 +19,7 @@
 <script>
 import * as d3 from 'd3'
 import { odontogramTemplate } from 'static/odontogramTemplate.js'
-import { stateColor, typeName, typeIcon } from 'static/helpers.js'
+import { stateColor, typeName } from 'static/helpers.js'
 export default {
   props: {
     odontogram: {
@@ -34,7 +35,6 @@ export default {
       odontogramTemplate,
       stateColor,
       typeName,
-      typeIcon,
       topPoints: [
         {
           x: 0,
