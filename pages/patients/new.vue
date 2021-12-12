@@ -2,7 +2,7 @@
   <v-form @submit.prevent="savePatient">
     <v-container>
       <h1>Nuevo Paciente</h1>
-      <v-card class="mt-10 pa-10" style="max-width: 700px">
+      <v-card class="mt-10 mr-20" flat>
         <v-text-field
           v-model="firstName"
           label="Nombre"

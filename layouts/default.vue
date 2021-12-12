@@ -7,12 +7,12 @@
       fixed
       app
     >
-      <v-list>
+      <v-list class="d-flex flex-column" height="100%">
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
-          active-class="accent--text border-color rounded-xl"
+          active-class="primary--text border-color rounded-xl"
           router
           exact
         >
@@ -23,28 +23,34 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item
+          class="mt-auto"
+          @click="() => ($vuetify.theme.dark = !$vuetify.theme.dark)"
+        >
           <v-list-item-action>
-            <v-switch
-                v-model="$vuetify.theme.dark"
-                inset
-                style="padding-left: 20px;"
-            ></v-switch>
+            <v-icon v-if="$vuetify.theme.dark">mdi-brightness-7</v-icon>
+            <v-icon v-if="!$vuetify.theme.dark">mdi-brightness-2</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>
-            Tema oscuro
-            </v-list-item-title>
+            {{ `Tema ${!$vuetify.theme.dark ? 'oscuro' : 'claro'}` }}
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
+    <v-app-bar
+      :clipped-left="clipped"
+      fixed
+      app
+      :color="$vuetify.theme.dark ? '#043353' : 'primary'"
+    >
+      <v-app-bar-nav-icon color="white" @click.stop="drawer = !drawer" />
+      <v-btn color="white" icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
       <v-spacer />
+      <v-btn color="tertiary" outlined @click="() => $auth.logout()"
+        >Salir</v-btn
+      >
     </v-app-bar>
     <v-main>
       <Nuxt />
@@ -54,16 +60,12 @@
 
 <script>
 export default {
+  middleware: ['auth'],
   data() {
     return {
       clipped: true,
       drawer: false,
       items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Main',
-          to: '/',
-        },
         {
           icon: 'mdi-chart-bubble',
           title: 'Pacientes',
@@ -97,5 +99,8 @@ export default {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #292939;
+}
+.v-list-item {
+  flex: 0;
 }
 </style>

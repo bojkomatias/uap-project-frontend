@@ -1,63 +1,100 @@
 <template>
-    <div>
-        <template>           
-            <v-container>
-                <v-card>
-                    <template>
-                        <v-toolbar flat>
-                            <v-spacer></v-spacer>
-                            <v-btn color="primary" class="mb-2" @click="$router.push('/patients/new')">
-                                Nuevo Paciente
-                            </v-btn>            
-                        </v-toolbar>
-                    </template>
-                    <v-card-title>
-                        <v-text-field v-model="search" append-icon="mdi-magnify" label="Buscar un paciente" single-line hide-details></v-text-field>
-                    </v-card-title>               
-                    <v-data-table :loading="loadingData" :headers="headers" :items="patients" :search="search" @click:row="verPaciente"></v-data-table>
-                </v-card>                       
-            </v-container>
-        </template>
-    </div>    
+  <div>
+    <v-container>
+      <v-card flat>
+        <v-toolbar flat>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            class="mb-2"
+            outlined
+            @click="$router.push('/patients/new')"
+          >
+            Nuevo Paciente
+          </v-btn>
+        </v-toolbar>
+        <v-card-title>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Buscar un paciente"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-card-title>
+        <v-data-table
+          class=""
+          :loading="loadingData"
+          :headers="headers"
+          :items="patients"
+          :search="search"
+          flat
+        >
+          <template #item.action="{ item }" class="mr-0">
+            <v-btn
+              outlined
+              color="primary"
+              @click="
+                (e) => {
+                  e.stopPropagation()
+                  $router.push(`/patients/${item.id}`)
+                }
+              "
+            >
+              Ver Paciente
+            </v-btn>
+            <v-btn
+              outlined
+              color="primary"
+              @click="
+                (e) => {
+                  e.stopPropagation()
+                  $router.push(`/case-history/${item.id}`)
+                }
+              "
+            >
+              Historia Clinica
+            </v-btn>
+          </template>
+        </v-data-table>
+      </v-card>
+    </v-container>
+  </div>
 </template>
 
 <script>
+export default {
+  middleware: ['auth'],
+  data() {
+    return {
+      loadingData: true,
+      search: '',
+      headers: [
+        { text: 'ID', value: 'id', sortable: false },
+        { text: 'Nombre', value: 'first_name' },
+        { text: 'Apellido', value: 'last_name' },
+        { text: 'Documento', value: 'document' },
+        { text: 'Action', value: 'action', width: '400' },
+      ],
 
-    export default {
-        data () {
-        return {
-            loadingData: true,
-            search: '',
-            headers: [
-                {text: 'ID', value: 'id', sortable: false},
-                {text: 'Nombre', value: 'first_name'},
-                {text: 'Apellido', value: 'last_name'},
-                {text: 'Documento', value: 'document'} 
-            ],
+      patients: [],
 
-            patients: [],
-
-            patient: {},
-        }
-        },
-
-        mounted() {
-            this.getAllPacientens()
-        },
-
-        methods: {
-            async getAllPacientens() {
-                const {data} = await this.$axios.get(`patients`)
-                this.patients = data
-                this.loadingData = false
-            },
-            verPaciente(dato, item){
-                this.$router.push('/patients/'+dato.id);
-            }
-        },
+      patient: {},
     }
+  },
+
+  mounted() {
+    this.getAllPacientens()
+  },
+
+  methods: {
+    async getAllPacientens() {
+      const { data } = await this.$axios.get(`patients`)
+      this.patients = data
+      this.loadingData = false
+    },
+  },
+}
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

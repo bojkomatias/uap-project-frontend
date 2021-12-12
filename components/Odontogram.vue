@@ -1,19 +1,25 @@
 <template>
   <div>
     <div id="odontogram"></div>
-    <div v-if="hoveredData && hoveredData.face">
-      <div v-for="p in hoveredData.face.procedures" :key="p.procedureSelector">
-        <v-icon>{{ typeIcon[p.procedureSelector] }}</v-icon>
-        <v-icon>{{ typeName[p.procedureSelector] }}</v-icon>
+    <v-card height="50" class="pa-3 d-flex justify-around" flat>
+      <div v-if="hoveredData && hoveredData.face" class="leading-loose">
+        <div
+          v-for="p in hoveredData.face.procedures"
+          :key="p.procedureSelector"
+        >
+          <v-icon :color="stateColor[p.state]">
+            {{ typeName[p.procedureSelector] }}
+          </v-icon>
+        </div>
       </div>
-    </div>
+    </v-card>
   </div>
 </template>
 
 <script>
 import * as d3 from 'd3'
 import { odontogramTemplate } from 'static/odontogramTemplate.js'
-import { stateColor, typeName, typeIcon } from 'static/helpers.js'
+import { stateColor, typeName } from 'static/helpers.js'
 export default {
   props: {
     odontogram: {
@@ -29,7 +35,6 @@ export default {
       odontogramTemplate,
       stateColor,
       typeName,
-      typeIcon,
       topPoints: [
         {
           x: 0,
@@ -124,8 +129,11 @@ export default {
   },
   mounted() {
     this.drawOdontogram()
-    this.populateOdontogram()
+    setTimeout(() => {
+      this.populateOdontogram()
+    }, 500)
   },
+
   methods: {
     drawOdontogram() {
       const ctx = this
@@ -167,7 +175,7 @@ export default {
           if (d.id === '3') return line(this.botPoints) + 'Z'
           else return line(this.centerPoints) + 'Z'
         })
-        .style('fill', '#F2F2E6')
+        .style('fill', '#FAF8F0')
         .style('stroke', 'gray')
         .on('mouseover', function () {
           d3.select(this).style('stroke', 'black')
@@ -187,6 +195,7 @@ export default {
         .append('text')
         .attr('y', 13)
         .attr('x', 17)
+        .style('fill', 'gray')
         .text(function (d) {
           return d?.id
         })
@@ -197,6 +206,7 @@ export default {
       this.$emit('toothClicked', { tooth, face })
     },
     populateOdontogram() {
+      console.log('Populating')
       const ctx = this
       this.odontogram.forEach((tooth) => {
         tooth.faces.forEach((face) => {

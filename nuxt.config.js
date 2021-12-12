@@ -41,13 +41,45 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseUrl: 'http://practicas-fcs.uap.edu.ar/api'
+    // baseUrl: 'http://practicas-fcs.uap.edu.ar/api'
+    baseUrl: 'http://localhost:1337'
+  },
+  router: {
+    middleware: ['auth']
   },
 
+  auth: {
+    redirect: {
+      login: '/',
+      logout: '/',
+      callback: '/signing-in',
+      home: '/patients'
+    },
+    strategies: {
+      local: {
+        token: {
+          property: 'token',
+          global: true,
+          // required: true,
+          // type: 'Bearer'
+        },
+        user: {
+          property: 'user',
+          // autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/auth/local', method: 'post' },
+          logout: { url: '/auth/logout', method: 'post' },
+          user: { url: '/users/me', method: 'get' }
+        }
+      }
+    }
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -57,17 +89,18 @@ export default {
       options: { variations: false },
       themes: {
         light: {
-          primary: '#043353', // #292939
-          accent: '#ED6767', // #ED6767
-          secondary: '#292939', // #043353
+          primary: '#043353',
+          accent: '#ED6767',
+          secondary: '#020314',
           tertiary: '#D3DDE6',
-          quaternary: '#F2F2E6',
-
+          quaternary: '#e4e8eb',
         },
         dark: {
-          primary: '#043353', // #292939
-          accent: '#ED6767', // #ED6767
-          secondary: '#292939', // #043353
+          primary: '#D3DDE6', // #043353
+          accent: '#ED6767',
+          secondary: '#FAF8F0',
+          tertiary: '#D3DDE6',
+          quaternary: '#020314',
         }
       }
     }
