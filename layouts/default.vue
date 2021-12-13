@@ -67,7 +67,7 @@ export default {
       drawer: false,
       items: [
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-clipboard-account',
           title: 'Pacientes',
           to: '/patients',
         },
