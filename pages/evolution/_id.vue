@@ -79,7 +79,7 @@ export default {
         {
           text: `Historia clínica`,
           disabled: false,
-          href: `/case-history/${this.evolution?.case_history?.patient}`,
+          to: `/case-history/${this.evolution?.case_history?.patient}`,
         },
         {
           text: `Evolución`,

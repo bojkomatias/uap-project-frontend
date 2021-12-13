@@ -2,7 +2,7 @@
 export const procedureSelector = [
   {
     value: 1,
-    text: "Carie",
+    text: "Caries",
   },
   {
     value: 2,
@@ -78,7 +78,7 @@ export const stateColor = {
 }
 
 export const typeName = {
-  1: 'Carie',
+  1: 'Caries',
   2: 'Resina',
   3: 'Amalgama',
   4: 'Sellante',
