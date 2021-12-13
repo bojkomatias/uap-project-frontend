@@ -46,8 +46,8 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseUrl: 'https://practicas-fcs.uap.edu.ar/api'
-    // baseUrl: 'http://localhost:1337'
+    // baseUrl: 'https://practicas-fcs.uap.edu.ar/api'
+    baseUrl: 'http://localhost:1337'
   },
   router: {
     middleware: ['auth']
@@ -65,8 +65,14 @@ export default {
         token: {
           property: 'token',
           global: true,
+          maxAge: 1800,
           // required: true,
           // type: 'Bearer'
+        },
+        refreshToken: {
+          property: 'refresh_token',
+          data: 'refresh_token',
+          maxAge: 60 * 60 * 24 * 30
         },
         user: {
           property: 'user',
