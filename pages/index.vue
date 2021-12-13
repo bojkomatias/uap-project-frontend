@@ -1,8 +1,8 @@
 <template>
   <div id="bgDental" class="d-flex align-center justify-center dentalImg">
     <div class="d-flex justify-center align-center flex-column">
-      <div class="py-16 blured d-inline-flex align-center justify-center">
-        <h1 class="primary--text display-1 text-h1 text-center">
+      <div class="py-16 blured d-flex align-center justify-center">
+        <h1 class="primary--text display-1 text-h1 text-center ">
           Administrador de Prácticas Odontológicas
         </h1>
       </div>
@@ -95,12 +95,13 @@ span {
   white-space: nowrap;
 }
 .blured {
-  width: 120%;
+  width: 100vw;
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px) saturate(70%) contrast(45%) brightness(110%);
 }
 
 .bluredShort {
+  
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px) saturate(70%) contrast(45%) brightness(110%);
 }
