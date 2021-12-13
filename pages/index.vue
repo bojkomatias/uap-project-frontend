@@ -1,10 +1,10 @@
 <template>
   <div id="bgDental" class="d-flex align-center justify-center dentalImg">
     <div class="d-flex justify-center align-center flex-column">
-      <div class="py-16 blured d-flex align-center justify-center">
-        <h1 class="primary--text display-1 text-h1 text-center ">
+      <div class="py-12 blured d-flex align-center justify-center">
+        <div class="primary--text display-1 text-h2 text-center">
           Administrador de Prácticas Odontológicas
-        </h1>
+        </div>
       </div>
       <div class="mt-6 pa-8 bluredShort flex-column rounded-xl">
         <v-layout>
@@ -66,7 +66,7 @@
       {{ text }}
 
       <template #action="{ attrs }">
-        <v-btn text v-bind="attrs" @click="snackbar = false"> Close </v-btn>
+        <v-btn text v-bind="attrs" @click="snackbar = false"> Cerrar </v-btn>
       </template>
     </v-snackbar>
   </div>
@@ -77,13 +77,15 @@ export default {
   layout: 'unauthenticated',
   data() {
     return {
-      snackbar : false,
+      text: '',
+      snackbar: false,
       login: {
         identifier: '',
         password: '',
       },
     }
   },
+
   methods: {
     async userLogin() {
       try {
@@ -93,13 +95,11 @@ export default {
         this.$auth.strategy.token.set(response.data.jwt)
         this.$auth.setUser(response.data.user)
       } catch (err) {
-        
         this.text = 'Credenciales invalidas'
         this.snackbar = true
         setTimeout(() => {
           this.snackbar = false
         }, 5000)
-                      
       }
     },
   },
@@ -110,6 +110,7 @@ export default {
 span {
   white-space: nowrap;
 }
+
 .blured {
   width: 100vw;
   background-color: rgba(255, 255, 255, 0.1);
@@ -117,7 +118,6 @@ span {
 }
 
 .bluredShort {
-  
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px) saturate(70%) contrast(45%) brightness(110%);
 }

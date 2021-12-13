@@ -56,7 +56,7 @@
       {{ text }}
 
       <template #action="{ attrs }">
-        <v-btn text v-bind="attrs" @click="snackbar = false"> Close </v-btn>
+        <v-btn text v-bind="attrs" @click="snackbar = false"> Cerrar </v-btn>
       </template>
     </v-snackbar>
     <v-dialog v-model="dialog" persistent max-width="600px">
@@ -105,6 +105,12 @@
 <script>
 import { stateColor, procedureSelector, colorSelector } from 'static/helpers.js'
 export default {
+  props: {
+    caseHistory: {
+      type: Number,
+      default: 0,
+    },
+  },
   emits: ['created'],
   data() {
     return {
@@ -194,7 +200,10 @@ export default {
       }, 500)
     },
     async saveEvolution() {
-      const res = await this.$axios.post(`evolutions`, this.newEvolution)
+      const res = await this.$axios.post(`evolutions`, {
+        ...this.newEvolution,
+        case_history: this.caseHistory,
+      })
       if (res.status === 200) {
         this.text = 'Evolución guardada con exito!'
         this.snackbar = true

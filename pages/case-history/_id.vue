@@ -28,6 +28,7 @@
         </div>
         <NewEvolution
           v-if="creatingNewEvolution"
+          :case-history="caseHistory.id"
           @created="
             () => {
               creatingNewEvolution = false

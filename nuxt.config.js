@@ -23,8 +23,7 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-  ],
+
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -49,15 +48,14 @@ export default {
     // baseUrl: 'https://practicas-fcs.uap.edu.ar/api'
     baseUrl: 'http://localhost:1337'
   },
-  router: {
-    middleware: ['auth']
-  },
+  // router: {
+  //   middleware: ['auth']
+  // },
 
   auth: {
     redirect: {
       login: '/',
       logout: '/',
-      callback: '/signing-in',
       home: '/patients'
     },
     strategies: {
@@ -65,9 +63,6 @@ export default {
         token: {
           property: 'token',
           global: true,
-          maxAge: 1800,
-          // required: true,
-          // type: 'Bearer'
         },
         refreshToken: {
           property: 'refresh_token',
@@ -76,15 +71,20 @@ export default {
         },
         user: {
           property: 'user',
-          // autoFetch: true
+          autoFetch: false
         },
         endpoints: {
           login: { url: '/auth/local', method: 'post' },
           logout: { url: '/auth/logout', method: 'post' },
-          user: { url: '/users/me', method: 'get' }
+          user: false // { url: '/users/me', method: 'get' }
         }
       }
-    }
+    },
+    plugins: [
+      { src: "~/plugins/axios", mode: "client" },
+      { src: "~/plugins/auth", mode: "client" }
+    ]
+
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
