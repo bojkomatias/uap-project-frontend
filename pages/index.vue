@@ -62,6 +62,13 @@
         </v-btn>
       </div>
     </div>
+    <v-snackbar v-model="snackbar" vertical>
+      {{ text }}
+
+      <template #action="{ attrs }">
+        <v-btn text v-bind="attrs" @click="snackbar = false"> Close </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -70,6 +77,7 @@ export default {
   layout: 'unauthenticated',
   data() {
     return {
+      snackbar : false,
       login: {
         identifier: '',
         password: '',
@@ -84,7 +92,15 @@ export default {
         })
         this.$auth.strategy.token.set(response.data.jwt)
         this.$auth.setUser(response.data.user)
-      } catch (err) {}
+      } catch (err) {
+        
+        this.text = 'Credenciales invalidas'
+        this.snackbar = true
+        setTimeout(() => {
+          this.snackbar = false
+        }, 5000)
+                      
+      }
     },
   },
 }
